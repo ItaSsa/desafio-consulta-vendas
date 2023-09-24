@@ -30,4 +30,10 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 			+ "group by seller.name")
 	List<SaleSummaryProjection> searchSummary(String minDate, String  maxDate);
 
+	@Query("SELECT new com.devsuperior.dsmeta.dto.SaleSummaryDTO(obj.seller.name , sum(obj.amount) as total) "
+			+ "FROM Sale obj "
+			+ "where obj.date between :minDate and :maxDate "
+			+ "group by obj.seller.name")
+	Page<SaleSummaryDTO> searchSummary2(LocalDate minDate, LocalDate  maxDate, Pageable pageable);
+
 }

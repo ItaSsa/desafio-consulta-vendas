@@ -49,6 +49,15 @@ public class SaleService {
 		return list.stream().map(x -> new SaleSummaryDTO(x)).toList();
 	}
 	
+	public Page<SaleSummaryDTO> searchSummary2(String minDate, String maxDate, Pageable pageable){
+
+		Page<SaleSummaryDTO> result = repository.searchSummary2(calcMinDateDefaul(minDate), 
+															    calcMaxDateDefaul(maxDate),
+																pageable);
+		
+		return result;
+	}
+	
 	private LocalDate calcMinDateDefaul(String minDate) {
 
 		LocalDate today = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
